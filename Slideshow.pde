@@ -30,11 +30,14 @@ boolean[] option3_3_ImagesDiapos = new boolean[8];
 float tiempoDiapositiva = 0;
 float duracionDiapositiva = 5;
 
+boolean nextRama1 = false;
+boolean nextRama2 = false;
+
 public void settings() {
   size(640, 480);
 }
 
-public void setup() {
+void setup() {
   // INICIALIZACIÓN DE VARIABLES RAMA 0
   for (int i = 0; i < 11; i++) {
     images[i] = loadImage("rama0/imagenes/p" + (i+1) + ".jpg");
@@ -64,7 +67,7 @@ public void setup() {
   imgGo = loadImage("go.png");
 }
 
-public void draw() {
+void draw() {
   // println("La posición actual del mouse es: (" + mouseX + ", " + mouseY + ")");
 
   if (!go) {
@@ -108,66 +111,134 @@ public void draw() {
         image(option3_3Images[i], 0, 0, 640, 480);
         fill(0);
         textSize(50);
-        text(option3_3Texts[i], option3_3TextPositionsX[i], option3_3TextPositionsY[i]);
-        if (option3_3_ImagesDiapos[i]) {
+        text(option3Texts[i], option3TextPositionsX[i], option3TextPositionsY[i]);
+        if (i < 7) {
           drawNextButton();
-        } else {
-          drawOptionalButton();
-        }
-      }
-    }
-  }
-}
-
-public void mouseClicked() {
-  if (!go) {
-    if (mouseX >= 241 && mouseX <= 391 && mouseY >= 190 && mouseY <= 340) {
-      go = true;
-      diapos[0] = true;
-    }
-  } else {
-    for (int i = 0; i < 12; i++) {
-      if (diapos[i] && i != 1 && i != 11) {
-        if (mouseX >= 575 && mouseX <= 625 && mouseY >= 380 && mouseY <= 465) {
-          goBack = true;
-          diapos[i] = false;
-          diapos[0] = true;
-        } else {
-          diapos[i] = false;
-          if (i < 11) {
-            diapos[i+1] = true;
-          }
+        } else if (i == 7) {
+          image(imgGoBack, 575, 380, 50, 85);
         }
       }
     }
     
-    for (int i = 0; i < 4; i++) {
-      if (option3Diapos[i] && i != 2 && i != 3) {
-        if (mouseX >= 575 && mouseX <= 625 && mouseY >= 380 && mouseY <= 465) {
-          goBack = true;
-          option3Diapos[i] = false;
-          diapos[2] = true;
-        } else {
-          option3Diapos[i] = false;
-          if (i < 3) {
-            option3Diapos[i+1] = true;
-          }
-        }
-      }
+  }
+}
+
+void avanzarDiapositiva() {
+  if (diapos[0]) {
+    diapos[0] = false;
+    diapos[1] = true;
+  } else if (diapos[1]) {
+    diapos[1] = false;
+    diapos[2] = true;
+  } else if (diapos[2]) {
+    diapos[2] = false;
+    diapos[3] = true;
+  } else if (diapos[3]) {
+    diapos[3] = false;
+    diapos[4] = true;
+  } else if (diapos[4]) {
+    diapos[4] = false;
+    diapos[5] = true;
+  } else if (diapos[5]) {
+    diapos[5] = false;
+    diapos[6] = true;
+  } else if (diapos[6]) {
+    diapos[6] = false;
+    diapos[7] = true;
+  } else if (diapos[7]) {
+    diapos[7] = false;
+    diapos[8] = true;
+  } else if (diapos[8]) {
+    diapos[8] = false;
+    diapos[9] = true;
+  } else if (diapos[9]) {
+    diapos[9] = false;
+    diapos[10] = true;
+  } else if (diapos[10]) {
+    diapos[10] = false;
+  }
+
+  if (option3Diapos[0]) {
+    option3Diapos[0] = false;
+    option3Diapos[1] = true;
+  } else if (option3Diapos[1]) {
+    option3Diapos[1] = false;
+    option3Diapos[2] = true;
+  } else if (option3Diapos[2]) {
+    option3Diapos[2] = false;
+    option3Diapos[3] = true;
+  } else if (option3Diapos[3]) {
+    option3Diapos[3] = false;
+  }
+
+  if (option3_3Diapos[0]) {
+    option3_3Diapos[0] = false;
+    option3_3Diapos[1] = true;
+  } else if (option3_3Diapos[1]) {
+    option3_3Diapos[1] = false;
+    option3_3Diapos[2] = true;
+  } else if (option3_3Diapos[2]) {
+    option3_3Diapos[2] = false;
+    option3_3Diapos[3] = true;
+  } else if (option3_3Diapos[3]) {
+    option3_3Diapos[3] = false;
+    option3_3Diapos[4] = true;
+  } else if (option3_3Diapos[4]) {
+    option3_3Diapos[4] = false;
+    option3_3Diapos[5] = true;
+  } else if (option3_3Diapos[5]) {
+    option3_3Diapos[5] = false;
+    option3_3Diapos[6] = true;
+  } else if (option3_3Diapos[6]) {
+    option3_3Diapos[6] = false;
+    option3_3Diapos[7] = true;
+  } else if (option3_3Diapos[7]) {
+    option3_3Diapos[7] = false;
+  }
+}
+
+void mouseClicked() {
+  //BOTON DE INICIO 
+  if (!go && mouseX >= 260 && mouseX <= 390 && mouseY >= 200 && mouseY <= 450) {
+    go = true;
+    diapos[0] = true;
+  }
+  
+  // Botón de avanzar diapositiva
+  if ((diapos[0] || diapos[1] || diapos[3] || diapos[4] || diapos[5] || diapos[6] || diapos[7] || diapos[8] || diapos[9] || diapos[10] || option3Diapos[0] || option3Diapos[1] || option3Diapos[2] || option3Diapos[3] || option3_3Diapos[0] || option3_3Diapos[1] || option3_3Diapos[2] || option3_3Diapos[3] || option3_3Diapos[4] || option3_3Diapos[5] || option3_3Diapos[6]) && go && mouseX >= 260 && mouseX <= 380 && mouseY >= 420 && mouseY <= 457) {
+    avanzarDiapositiva();
+  }
+
+  int buttonWidth = 100;
+  int buttonHeight = 40;
+  int buttonX1 = width/2 - buttonWidth/2 - 80; // Coordenada X del botón 1
+  int buttonX2 = width/2 - buttonWidth/2 + 80; // Coordenada X del botón 2
+  int buttonY = height - 50; // Coordenada Y de ambos botones
+
+  // Botón de Opción 1 de Rama 1
+  if ((diapos[2] || option3Diapos[2]) && mouseX >= buttonX1 && mouseX <= buttonX1 + buttonWidth && mouseY >= buttonY && mouseY <= buttonY + buttonHeight) {
+    if (diapos[2]) {
+      diapos[2] = false;
+      diapos[3] = true;
     }
 
-    for (int i = 0; i < 8; i++) {
-      if (option3_3Diapos[i]) {
-        if (option3_3_ImagesDiapos[i]) {
-          option3_3_ImagesDiapos[i] = false;
-          if (i < 7) {
-            option3_3_ImagesDiapos[i+1] = true;
-          }
-        } else {
-          option3_3Diapos[i] = false;
-          option3_3_ImagesDiapos[i] = true;
-        }
-      }
+    if (option3Diapos[2]) {
+      option3Diapos[2] = false;
+      option3Diapos[3] = true;
+    }
+  }
+
+  // Botón de Opción 2 de Rama 1
+  if ((diapos[2] || option3Diapos[2]) && mouseX >= buttonX2 && mouseX <= buttonX2 + buttonWidth && mouseY >= buttonY && mouseY <= buttonY + buttonHeight) {
+
+    if (diapos[2]) {
+      diapos[2] = false;
+      option3Diapos[0] = true;
+    }
+
+    if (option3Diapos[2]) {
+      option3Diapos[2] = false;
+      option3_3Diapos[0] = true;
     }
   }
 }
