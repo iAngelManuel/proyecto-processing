@@ -127,7 +127,7 @@ public void mouseClicked() {
     }
   } else {
     for (int i = 0; i < 12; i++) {
-      if (diapos[i] && i != 2 && i != 11) {
+      if (diapos[i] && i != 1 && i != 11) {
         if (mouseX >= 575 && mouseX <= 625 && mouseY >= 380 && mouseY <= 465) {
           goBack = true;
           diapos[i] = false;
@@ -172,16 +172,54 @@ public void mouseClicked() {
   }
 }
 
-public void drawNextButton() {
-  fill(0, 0, 255);
-  rect(575, 380, 50, 85);
+void drawNextButton() {
+  // Estilos del botón
+  rectMode(CENTER);
+  stroke(255);
+  strokeWeight(2);
+  fill(0);
+  
+  // Dimensiones del botón
+  float buttonWidth = 120;
+  float buttonHeight = 40;
+  
+  // Posición del botón (parte inferior centrada)
+  float buttonX = width / 2;
+  float buttonY = height - buttonHeight / 2 - 20; // 20 es el espacio desde el borde inferior
+  
+  // Dibujar el botón de avanzar diapositiva
+  rect(buttonX, buttonY, buttonWidth, buttonHeight);
+  textAlign(CENTER, CENTER);
+  textSize(18);
   fill(255);
-  triangle(595, 400, 595, 445, 630, 422);
+  text("Avanzar", buttonX, buttonY);
 }
 
-public void drawOptionalButton() {
-  fill(0, 0, 255);
-  rect(550, 380, 50, 85);
+void drawOptionalButton() {
+  // Obtener las dimensiones de los botones
+  int buttonWidth = 100;
+  int buttonHeight = 40;
+  
+  // Calcular las coordenadas para centrar los botones en la parte inferior
+  int buttonX1 = width/2 - buttonWidth/2 - 80; // Coordenada X del botón 1
+  int buttonX2 = width/2 - buttonWidth/2 + 80; // Coordenada X del botón 2
+  int buttonY = height - 50; // Coordenada Y de ambos botones
+  
+  // Dibujar el botón de Opción 1
   fill(255);
-  triangle(570, 400, 570, 445, 605, 422);
+  stroke(0);
+  rect(buttonX1, buttonY, buttonWidth, buttonHeight);
+  fill(0);
+  textSize(16);
+  textAlign(CENTER, CENTER);
+  text("Opción 1", buttonX1, buttonY, buttonWidth, buttonHeight);
+  
+  // Dibujar el botón de Opción 2
+  fill(255);
+  stroke(0);
+  rect(buttonX2, buttonY, buttonWidth, buttonHeight);
+  fill(0);
+  textSize(16);
+  textAlign(CENTER, CENTER);
+  text("Opción 2", buttonX2, buttonY, buttonWidth, buttonHeight);
 }
