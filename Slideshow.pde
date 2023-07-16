@@ -111,7 +111,7 @@ void draw() {
         image(option3_3Images[i], 0, 0, 640, 480);
         fill(0);
         textSize(50);
-        text(option3Texts[i], option3TextPositionsX[i], option3TextPositionsY[i]);
+        text(option3_3Texts[i], option3_3TextPositionsX[i], option3_3TextPositionsY[i]);
         if (i < 7) {
           drawNextButton();
         } else if (i == 7) {
@@ -123,6 +123,7 @@ void draw() {
   }
 }
 
+//Avanzando todas las diapositivas
 void avanzarDiapositiva() {
   if (diapos[0]) {
     diapos[0] = false;
@@ -130,9 +131,6 @@ void avanzarDiapositiva() {
   } else if (diapos[1]) {
     diapos[1] = false;
     diapos[2] = true;
-  } else if (diapos[2]) {
-    diapos[2] = false;
-    diapos[3] = true;
   } else if (diapos[3]) {
     diapos[3] = false;
     diapos[4] = true;
@@ -158,16 +156,14 @@ void avanzarDiapositiva() {
     diapos[10] = false;
   }
 
+//validacion rama 1
   if (option3Diapos[0]) {
     option3Diapos[0] = false;
     option3Diapos[1] = true;
   } else if (option3Diapos[1]) {
     option3Diapos[1] = false;
     option3Diapos[2] = true;
-  } else if (option3Diapos[2]) {
-    option3Diapos[2] = false;
-    option3Diapos[3] = true;
-  } else if (option3Diapos[3]) {
+  }  else if (option3Diapos[3]) {
     option3Diapos[3] = false;
   }
 
@@ -205,7 +201,7 @@ void mouseClicked() {
   }
   
   // Botón de avanzar diapositiva
-  if ((diapos[0] || diapos[1] || diapos[3] || diapos[4] || diapos[5] || diapos[6] || diapos[7] || diapos[8] || diapos[9] || diapos[10] || option3Diapos[0] || option3Diapos[1] || option3Diapos[2] || option3Diapos[3] || option3_3Diapos[0] || option3_3Diapos[1] || option3_3Diapos[2] || option3_3Diapos[3] || option3_3Diapos[4] || option3_3Diapos[5] || option3_3Diapos[6]) && go && mouseX >= 260 && mouseX <= 380 && mouseY >= 420 && mouseY <= 457) {
+  if ((diapos[0] || diapos[1] || diapos[3] || diapos[4] || diapos[5] || diapos[6] || diapos[7] || diapos[8] || diapos[9] || diapos[10] || option3Diapos[0] || option3Diapos[1] || option3Diapos[3] || option3_3Diapos[0] || option3_3Diapos[1] || option3_3Diapos[2] || option3_3Diapos[3] || option3_3Diapos[4] || option3_3Diapos[5] || option3_3Diapos[6]) && go && mouseX >= 260 && mouseX <= 380 && mouseY >= 420 && mouseY <= 457) {
     avanzarDiapositiva();
   }
 
