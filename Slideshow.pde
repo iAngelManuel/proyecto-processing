@@ -6,9 +6,9 @@ PImage imgGoBack;
 PImage imgGo;
 
 // VARIABLES DE TEXTO
-String[][] texts = new String[11][];
-String[][] option3Texts = new String[4][];
-String[][] option3_3Texts = new String[8][];
+String[] texts = new String[11];
+String[] option3Texts = new String[4];
+String[] option3_3Texts = new String[8];
 
 // VARIABLES DE TAMAÑO DE TEXTO
 float[] textPositionsX = new float[11];
@@ -43,7 +43,7 @@ void setup() {
     images[i] = loadImage("rama0/imagenes/p" + (i+1) + ".jpg");
     textPositionsX[i] = width / 2;
     textPositionsY[i] = height / 2;
-    texts[i] = loadStrings("rama0/texto/p" + (i+1) + ".txt");
+    texts[i] = "Hola" + (i+1);
   }
 
   // INICIALIZACIÓN DE VARIABLES RAMA 1
@@ -51,7 +51,7 @@ void setup() {
     option3Images[i] = loadImage("rama1/imagenes/p" + (i+3) + "r1.jpg");
     option3TextPositionsX[i] = width / 2;
     option3TextPositionsY[i] = height / 2;
-    option3Texts[i] = loadStrings("rama1/texto/p" + (i+1) + "r1.txt");
+    option3Texts[i] = "Hola3." + (i+1);
   }
 
   // INICIALIZACIÓN DE VARIABLES RAMA 2
@@ -59,7 +59,7 @@ void setup() {
     option3_3Images[i] = loadImage("rama2/imagenes/p" + (i+5) + "r3.jpeg");
     option3_3TextPositionsX[i] = width / 2;
     option3_3TextPositionsY[i] = height / 2;
-    option3_3Texts[i] = loadStrings("rama2/texto/p" + (i+1) + "r3.txt");
+    option3_3Texts[i] = "Hola3.3." + (i+1);
   }
 
   // INICIALIZACIÓN DE VARIABLES DE INICIO
@@ -79,15 +79,12 @@ void draw() {
         image(images[i], 0, 0, 640, 480);
         fill(0);
         textSize(50);
-        for (String line : texts[i]) {
-          text(line, textPositionsX[i], textPositionsY[i]);
-          textPositionsY[i] += textAscent() + textDescent(); // Ajusta la posición vertical para mostrar la siguiente línea
-        }
+        text(texts[i], textPositionsX[i], textPositionsY[i]);
         if (i == 0 || i == 1 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8 || i == 9 || i == 10) {
           drawNextButton();
         } else if (i == 2) {
           drawOptionalButton();
-        } else if (i == 10) {
+        } else if (i == 1) {
           image(imgGoBack, 575, 380, 50, 85);
         }
       }
@@ -98,10 +95,7 @@ void draw() {
         image(option3Images[i], 0, 0, 640, 480);
         fill(0);
         textSize(50);
-        for (String line : option3Texts[i]) {
-          text(line, option3TextPositionsX[i], option3TextPositionsY[i]);
-          option3TextPositionsY[i] += textAscent() + textDescent(); // Ajusta la posición vertical para mostrar la siguiente línea
-        }
+        text(option3Texts[i], option3TextPositionsX[i], option3TextPositionsY[i]);
         if (i == 0 || i == 1) {
           drawNextButton();
         } else if (i == 2) {
@@ -117,10 +111,7 @@ void draw() {
         image(option3_3Images[i], 0, 0, 640, 480);
         fill(0);
         textSize(50);
-        for (String line : option3_3Texts[i]) {
-          text(line, option3_3TextPositionsX[i], option3_3TextPositionsY[i]);
-          option3_3TextPositionsY[i] += textAscent() + textDescent(); // Ajusta la posición vertical para mostrar la siguiente línea
-        }
+        text(option3_3Texts[i], option3_3TextPositionsX[i], option3_3TextPositionsY[i]);
         if (i < 7) {
           drawNextButton();
         } else if (i == 7) {
