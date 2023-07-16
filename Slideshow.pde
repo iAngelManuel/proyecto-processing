@@ -6,9 +6,9 @@ PImage imgGoBack;
 PImage imgGo;
 
 // VARIABLES DE TEXTO
-String[] texts = new String[11];
-String[] option3Texts = new String[4];
-String[] option3_3Texts = new String[8];
+String[][] texts = new String[11][];
+String[][] option3Texts = new String[4][];
+String[][] option3_3Texts = new String[8][];
 
 // VARIABLES DE TAMAÑO DE TEXTO
 float[] textPositionsX = new float[11];
@@ -43,7 +43,7 @@ void setup() {
     images[i] = loadImage("rama0/imagenes/p" + (i+1) + ".jpg");
     textPositionsX[i] = width / 2;
     textPositionsY[i] = height / 2;
-    texts[i] = "Hola" + (i+1);
+    texts[i] = loadStrings("rama0/texto/p" + (i+1) + ".txt");
   }
 
   // INICIALIZACIÓN DE VARIABLES RAMA 1
@@ -51,7 +51,7 @@ void setup() {
     option3Images[i] = loadImage("rama1/imagenes/p" + (i+3) + "r1.jpg");
     option3TextPositionsX[i] = width / 2;
     option3TextPositionsY[i] = height / 2;
-    option3Texts[i] = "Hola3." + (i+1);
+    option3Texts[i] = loadStrings("rama1/texto/p" + (i+1) + "r1.txt");
   }
 
   // INICIALIZACIÓN DE VARIABLES RAMA 2
@@ -59,7 +59,7 @@ void setup() {
     option3_3Images[i] = loadImage("rama2/imagenes/p" + (i+5) + "r3.jpeg");
     option3_3TextPositionsX[i] = width / 2;
     option3_3TextPositionsY[i] = height / 2;
-    option3_3Texts[i] = "Hola3.3." + (i+1);
+    option3_3Texts[i] = loadStrings("rama2/texto/p" + (i+1) + "r3.txt");
   }
 
   // INICIALIZACIÓN DE VARIABLES DE INICIO
@@ -79,12 +79,15 @@ void draw() {
         image(images[i], 0, 0, 640, 480);
         fill(0);
         textSize(50);
-        text(texts[i], textPositionsX[i], textPositionsY[i]);
+        for (String line : texts[i]) {
+          text(line, textPositionsX[i], textPositionsY[i]);
+          textPositionsY[i] += textAscent() + textDescent(); // Ajusta la posición vertical para mostrar la siguiente línea
+        }
         if (i == 0 || i == 1 || i == 3 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8 || i == 9 || i == 10) {
           drawNextButton();
         } else if (i == 2) {
           drawOptionalButton();
-        } else if (i == 11) {
+        } else if (i == 10) {
           image(imgGoBack, 575, 380, 50, 85);
         }
       }
@@ -95,7 +98,10 @@ void draw() {
         image(option3Images[i], 0, 0, 640, 480);
         fill(0);
         textSize(50);
-        text(option3Texts[i], option3TextPositionsX[i], option3TextPositionsY[i]);
+        for (String line : option3Texts[i]) {
+          text(line, option3TextPositionsX[i], option3TextPositionsY[i]);
+          option3TextPositionsY[i] += textAscent() + textDescent(); // Ajusta la posición vertical para mostrar la siguiente línea
+        }
         if (i == 0 || i == 1) {
           drawNextButton();
         } else if (i == 2) {
@@ -111,7 +117,10 @@ void draw() {
         image(option3_3Images[i], 0, 0, 640, 480);
         fill(0);
         textSize(50);
-        text(option3_3Texts[i], option3_3TextPositionsX[i], option3_3TextPositionsY[i]);
+        for (String line : option3_3Texts[i]) {
+          text(line, option3_3TextPositionsX[i], option3_3TextPositionsY[i]);
+          option3_3TextPositionsY[i] += textAscent() + textDescent(); // Ajusta la posición vertical para mostrar la siguiente línea
+        }
         if (i < 7) {
           drawNextButton();
         } else if (i == 7) {
@@ -119,12 +128,13 @@ void draw() {
         }
       }
     }
-    
   }
 }
 
 //Avanzando todas las diapositivas
 void avanzarDiapositiva() {
+
+  // Validación rama 0
   if (diapos[0]) {
     diapos[0] = false;
     diapos[1] = true;
@@ -156,7 +166,7 @@ void avanzarDiapositiva() {
     diapos[10] = false;
   }
 
-//validacion rama 1
+  // Validación rama 1
   if (option3Diapos[0]) {
     option3Diapos[0] = false;
     option3Diapos[1] = true;
@@ -167,6 +177,7 @@ void avanzarDiapositiva() {
     option3Diapos[3] = false;
   }
 
+  // Validación rama 2
   if (option3_3Diapos[0]) {
     option3_3Diapos[0] = false;
     option3_3Diapos[1] = true;
@@ -201,7 +212,11 @@ void mouseClicked() {
   }
   
   // Botón de avanzar diapositiva
-  if ((diapos[0] || diapos[1] || diapos[3] || diapos[4] || diapos[5] || diapos[6] || diapos[7] || diapos[8] || diapos[9] || diapos[10] || option3Diapos[0] || option3Diapos[1] || option3Diapos[3] || option3_3Diapos[0] || option3_3Diapos[1] || option3_3Diapos[2] || option3_3Diapos[3] || option3_3Diapos[4] || option3_3Diapos[5] || option3_3Diapos[6]) && go && mouseX >= 260 && mouseX <= 380 && mouseY >= 420 && mouseY <= 457) {
+  if ( (diapos[0] || diapos[1] || diapos[3] || diapos[4] || diapos[5] || diapos[6] || diapos[7] || diapos[8] || diapos[9] || diapos[10] ||
+    option3Diapos[0] || option3Diapos[1] || option3Diapos[3] ||
+    option3_3Diapos[0] || option3_3Diapos[1] || option3_3Diapos[2] || option3_3Diapos[3] || option3_3Diapos[4] || option3_3Diapos[5] || option3_3Diapos[6])
+    && go && mouseX >= 260 && mouseX <= 380 && mouseY >= 420 && mouseY <= 457 )
+  {
     avanzarDiapositiva();
   }
 
@@ -212,7 +227,8 @@ void mouseClicked() {
   int buttonY = height - 50; // Coordenada Y de ambos botones
 
   // Botón de Opción 1 de Rama 1
-  if ((diapos[2] || option3Diapos[2]) && mouseX >= buttonX1 && mouseX <= buttonX1 + buttonWidth && mouseY >= buttonY && mouseY <= buttonY + buttonHeight) {
+  if ( (diapos[2] || option3Diapos[2]) && mouseX >= buttonX1 && mouseX <= buttonX1 + buttonWidth && mouseY >= buttonY && mouseY <= buttonY + buttonHeight) {
+
     if (diapos[2]) {
       diapos[2] = false;
       diapos[3] = true;
@@ -236,6 +252,15 @@ void mouseClicked() {
       option3Diapos[2] = false;
       option3_3Diapos[0] = true;
     }
+
+  }
+
+  //BOTON DE REINICIO 
+  if ((diapos[10] || option3Diapos[3] || option3_3Diapos[7]) && go && mouseX >= 577 && mouseX <= 624 && mouseY >= 379 && mouseY <= 465) {
+    go = false;
+    diapos[10] = false;
+    option3Diapos[3] = false;
+    option3_3Diapos[7] = false;
   }
 }
 
